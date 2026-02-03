@@ -1,3 +1,11 @@
+"""
+VetUltrasound API - Main Application Entry Point
+
+This is where everything comes together. FastAPI handles the HTTP layer,
+and we wire up all the routes and middleware here.
+
+Run locally with: uvicorn src.main:app --reload --port 8080
+"""
 import structlog
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
@@ -7,7 +15,8 @@ from src.api.routes import documents, health
 from src.api.middleware.rate_limiter import RateLimitMiddleware
 from src.config import get_settings
 
-# Configure structured logging
+# Structured logging makes debugging in Cloud Run much easier
+# Each log line is JSON, so you can filter by fields in Cloud Logging
 structlog.configure(
     processors=[
         structlog.stdlib.filter_by_level,
@@ -50,10 +59,11 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
 
-    # CORS middleware
+    # CORS - wide open for now, tighten this up before going to prod
+    # In production, set allow_origins to your actual frontend domains
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # Configure properly in production
+        allow_origins=["*"],
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],

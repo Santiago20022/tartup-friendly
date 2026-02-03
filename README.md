@@ -1,6 +1,15 @@
 # VetUltrasound API
 
-A cloud-native REST API for processing veterinary ultrasound PDF reports. Built on Google Cloud Platform, this service automates the extraction of structured data from medical documents using Document AI.
+> Transforming messy veterinary ultrasound PDFs into clean, structured JSON data.
+
+I built this API to solve a real problem: veterinary clinics generate tons of ultrasound reports as PDFs, but that data is essentially trapped. This service extracts patient info, diagnoses, and recommendations automatically using Google Cloud's Document AI.
+
+## Why I Built This
+
+Manual data entry from PDFs is slow and error-prone. With this API, a clinic can:
+1. Upload a PDF report
+2. Get back structured JSON in seconds
+3. Store and search patient records easily
 
 ## Features
 
@@ -67,8 +76,8 @@ A cloud-native REST API for processing veterinary ultrasound PDF reports. Built 
 
 1. **Clone and setup**
 ```bash
-git clone https://github.com/yourusername/vet-ultrasound-api.git
-cd vet-ultrasound-api
+git clone https://github.com/Santiago20022/tartup-friendly.git
+cd tartup-friendly
 python -m venv venv
 source venv/bin/activate  # Windows: venv\Scripts\activate
 pip install -r requirements.txt
@@ -317,10 +326,23 @@ For 10,000 PDFs/month:
 | Firestore | ~$5/month |
 | **Total** | **~$40/month** |
 
+## Known Limitations
+
+- Document AI works best with clearly formatted PDFs. Handwritten notes may not extract properly.
+- Currently supports Spanish and English field labels. Other languages need pattern updates in `document_ai.py`.
+- Large PDFs (>50MB) are rejected to keep processing times reasonable.
+
+## Future Improvements
+
+- [ ] Add webhook notifications when processing completes
+- [ ] Support batch upload for multiple PDFs
+- [ ] Add PDF preview generation
+- [ ] Implement caching with Redis for frequently accessed documents
+
 ## License
 
 MIT License - see LICENSE file for details.
 
-## Support
+## Author
 
-For issues or questions, please open an issue on GitHub.
+Built by Santiago García as part of a backend engineering challenge. Feel free to reach out with questions or suggestions!

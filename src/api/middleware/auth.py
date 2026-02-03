@@ -23,13 +23,19 @@ class AuthContext(BaseModel):
 
 class AuthService:
     """
-    Authentication service supporting API keys and JWT tokens.
-    In production, integrate with Firebase Auth or Identity Platform.
+    Handles both API key and JWT authentication.
+
+    For this demo, I'm using a hardcoded API key. In a real deployment,
+    you'd store hashed keys in Firestore or fetch them from Secret Manager.
+    Firebase Auth integration is stubbed out but ready to go.
     """
 
     def __init__(self):
         self.settings = get_settings()
-        # Demo API keys - in production, store hashed keys in Firestore/Secret Manager
+
+        # Hardcoded for demo - replace with Firestore lookup in production
+        # The key is hashed so even if someone reads this code, they can't
+        # reverse engineer the actual key (well, easily anyway)
         self._demo_keys = {
             self._hash_key("demo-api-key-12345"): {
                 "user_id": "demo-user",

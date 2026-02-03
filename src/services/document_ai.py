@@ -15,8 +15,13 @@ logger = structlog.get_logger(__name__)
 
 class DocumentAIService:
     """
-    Google Cloud Document AI service for extracting structured data from PDFs.
-    Uses the Form Parser processor to extract key-value pairs and tables.
+    Handles all the heavy lifting for PDF text extraction.
+
+    Document AI does the OCR, then we use regex patterns to find specific fields.
+    The patterns support both Spanish and English since vet reports come in both.
+
+    Note: For best results, the PDF should be clearly formatted. Handwritten
+    notes or low-quality scans will have lower confidence scores.
     """
 
     def __init__(self):

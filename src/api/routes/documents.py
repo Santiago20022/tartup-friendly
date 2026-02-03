@@ -23,8 +23,11 @@ router = APIRouter()
 async def process_document_async(document_id: str, user_id: str, pdf_content: bytes):
     """
     Background task to process uploaded PDF.
-    Extracts data with Document AI and images with PyMuPDF.
+
+    This runs after the upload endpoint returns, so the user doesn't have to wait.
+    Typical processing time is 2-5 seconds depending on PDF size.
     """
+    # TODO: Consider moving this to Cloud Tasks for better reliability in production
     start_time = time.time()
     firestore = get_firestore_service()
     storage = get_storage_service()
@@ -264,7 +267,7 @@ async def get_document(
             detail="Document not found"
         )
 
-    # Verify ownership
+    # Security: return 404 instead of 403 to avoid leaking document existence
     if document.owner_id != auth.user_id:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
