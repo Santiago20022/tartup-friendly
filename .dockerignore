@@ -1,0 +1,47 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Environment
+.env
+.env.local
+*.env
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+tests/
+
+# Documentation
+*.md
+!requirements.txt
+
+# Terraform
+terraform/
+*.tf
+*.tfvars
+
+# Scripts
+scripts/
+
+# Misc
+.DS_Store
+*.log
+tmp/
+temp/
